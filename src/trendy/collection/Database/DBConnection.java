@@ -14,7 +14,7 @@ public class DBConnection {
 
     public DBConnection() throws SQLException, ClassNotFoundException {
         Class.forName("com.mysql.jdbc.Driver");
-        setConn(DriverManager.getConnection("jdbc:mysql://localhost:3306/studentmanagementsystem","root",""));
+        setConn(DriverManager.getConnection("jdbc:mysql://localhost:3306/trendycollection","root",""));
         setStmt(getConn().createStatement());
     }
 
