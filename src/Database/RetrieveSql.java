@@ -4,9 +4,10 @@ import java.sql.SQLException;
 
 public class RetrieveSql {
     
+    DBConnection db;
+    
     public void retrieveData(String sql) throws SQLException, ClassNotFoundException{
-        
-        DBConnection db = new DBConnection();
+        db = new DBConnection();
         
         db.setRs(db.getStmt().executeQuery(sql));
         
@@ -24,4 +25,38 @@ public class RetrieveSql {
         }
     }
     
+    public void retrieveForCalculation(String code, int amount) throws SQLException, ClassNotFoundException{  
+
+        String queryOne = "SELECT * FROM ladiesitems WHERE ItemCode = '"+code+"' ";
+        loopToInsert(code, amount, queryOne);
+        
+        String queryTwo = "SELECT * FROM gentsitems WHERE ItemCode = '"+code+"' ";
+        loopToInsert(code, amount, queryTwo);
+
+        String queryThree = "SELECT * FROM kidsitems WHERE ItemCode = '"+code+"' ";
+        loopToInsert(code, amount, queryThree);
+
+        String queryFour = "SELECT * FROM accessories WHERE ItemCode = '"+code+"' ";
+        loopToInsert(code, amount, queryFour);
+    }
+
+    public void loopToInsert(String code, int amount, String query) throws SQLException, ClassNotFoundException{
+        
+        Database.AddSql add = new Database.AddSql();
+        db = new DBConnection();
+        db.setRs(db.getStmt().executeQuery(query));
+        
+        while(db.getRs().next()){
+            
+            if(code.equals(db.getRs().getString("ItemCode"))){
+               
+                String name = db.getRs().getString("ItemName");
+                float price = db.getRs().getFloat("Price");
+                
+                double total = price * amount;
+                
+                add.addData("INSERT INTO purchase(ItemCode, ItemName, Price, TotalPrice) VALUES ('" +code+ "','" +name+ "','" +price+ "', '" +total+ "')");
+            }
+        }
+    }
 }

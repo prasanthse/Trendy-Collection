@@ -59,7 +59,6 @@ public class Calculate {
     
     public void claculatePrice(){
         setPrice(getUnitPrice()*getAmount());
-        calculateTotalPrice();
     }
     
     public void calculateTotalPrice(){

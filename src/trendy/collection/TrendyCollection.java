@@ -32,8 +32,14 @@ public class TrendyCollection {
                 
             case 2:
                 GetBillInfo info = new GetBillInfo();
+                
+            try {
                 info.getInfo();
+            } catch (SQLException ex) {
+                Logger.getLogger(TrendyCollection.class.getName()).log(Level.SEVERE, null, ex);
+            }
                 return;
+                
             case 3:
                 ManageSaleDetails manage = new ManageSaleDetails();
         

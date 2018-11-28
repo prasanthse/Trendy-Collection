@@ -5,14 +5,16 @@ public class Bill {
     private String cashier;
     private int unit;
     private String invoice;
+    private String branch;
 
     public Bill() {
     }
 
-    public Bill(String cashier, int unit, String invoice) {
+    public Bill(String cashier, int unit, String invoice, String branch) {
         this.cashier = cashier;
         this.unit = unit;
         this.invoice = invoice;
+        this.branch = branch;
     }
 
     public String getCashier() {
@@ -39,10 +41,15 @@ public class Bill {
         this.invoice = invoice;
     }
 
-    public void billPrinting(showRoom obj, Calculate cal){
-        
-        showRoom show = (showRoom)obj;
-        Calculate calculate = (Calculate)cal;
+    public String getBranch() {
+        return branch;
+    }
+
+    public void setBranch(String branch) {
+        this.branch = branch;
+    }
+
+    public void billPrinting(){
         
         System.out.println("--------------------_ _ _ _ _ TRENDY _ _ _ _ _--------------------");
         System.out.println("_ _ _ _ _ _ _ _ _ COLLECTION _ _ _ _ _ _ _ _ _");
