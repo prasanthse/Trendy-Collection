@@ -1,6 +1,7 @@
 package Database;
 
 import java.sql.SQLException;
+import trendy.collection.Calculate;
 
 public class RetrieveSql {
     
@@ -58,5 +59,35 @@ public class RetrieveSql {
                 add.addData("INSERT INTO purchase(ItemCode, ItemName, Price, TotalPrice) VALUES ('" +code+ "','" +name+ "','" +price+ "', '" +total+ "')");
             }
         }
+    }
+    
+    public void retrieveDataForBill() throws SQLException, ClassNotFoundException{
+        db = new DBConnection();
+        Calculate cal = new Calculate();
+        RemoveSql remove = new RemoveSql();
+        
+        db.setRs(db.getStmt().executeQuery("SELECT * FROM purchase"));
+        
+        int count = 1;
+        
+        while(db.getRs().next()){
+            
+            String Item_Code = db.getRs().getString("ItemCode");
+            String Item_Name = db.getRs().getString("ItemName");
+            float Item_Price = db.getRs().getFloat("Price");
+            float Item_TotalPrice = db.getRs().getFloat("TotalPrice");
+            
+            //remove.removeData("DELETE FROM purchase WHERE ItemCode = '"+Item_Code+"' ");
+            
+            int amount = (int) (Item_TotalPrice/Item_Price);
+            
+            System.out.println("() " + count + "" + Item_Name + "\n" + "" + Item_Code + "            (" + Item_Price + "*" + "" + amount + ")" + "                     " + Item_TotalPrice);
+
+            cal.calculateSubTotal(Item_TotalPrice);
+        }
+        
+        System.out.println("_ _ _ _ _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _");
+        System.out.println("SUB TOTAL                                                      " + cal.getSubTotal());
+        
     }
 }

@@ -13,7 +13,7 @@ public class GetBillInfo {
     Calculate cal = new Calculate();
     Database.RetrieveSql ret = new Database.RetrieveSql();
       
-    public void getInfo() throws SQLException{
+    public void getInfo() throws SQLException, ClassNotFoundException{
         System.out.println("\n\tCashier name?");
         bill.setCashier(obj.next());
         
@@ -34,6 +34,7 @@ public class GetBillInfo {
             int amount = obj.nextInt();
             
             try {
+               
                 ret.retrieveForCalculation(code, amount);
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(GetBillInfo.class.getName()).log(Level.SEVERE, null, ex);
@@ -47,9 +48,10 @@ public class GetBillInfo {
             }
         }
         
-        System.out.println("Where is your branch located?\n\t1 -    Malabe\n\t2 -   Kaduwela\n\t3 -   Mulleriyawa");
-       
-        
+        System.out.println("Where is your branch located?\n\t1 -    Malabe\n\t2 -   Kaduwela\n\tAny other number -   Mulleriyawa");
+        bill.setRoom(branchSelection(obj.nextInt()));
+
+        bill.billPrinting();
     }
     
     public showRoom branchSelection(int num){

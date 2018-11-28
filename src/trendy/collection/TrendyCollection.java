@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 
 public class TrendyCollection {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ClassNotFoundException {
        
         System.out.println("_ _ _ _ _ _ _ _ _ _ WELCOME TO TRENDY COLLECTION _ _ _ _ _ _ _ _ _ _\n");
         System.out.println("What you wish to do?");
