@@ -1,6 +1,9 @@
 package trendy.collection;
 
+import java.sql.SQLException;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class TrendyCollection {
 
@@ -25,7 +28,13 @@ public class TrendyCollection {
                 return;
             case 3:
                 ManageSaleDetails manage = new ManageSaleDetails();
+        {
+            try {
                 manage.management();
+            } catch (SQLException ex) {
+                Logger.getLogger(TrendyCollection.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
                 return;
             default:
                 System.out.println("Your selection is wrong! Thank you visiting");

@@ -1,4 +1,4 @@
-package trendy.collection.Database;
+package Database;
 
 import java.sql.SQLException;
 import java.util.logging.Level;

@@ -1,4 +1,4 @@
-package trendy.collection.Database;
+package Database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

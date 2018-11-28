@@ -8,10 +8,15 @@ public class ManageSaleDetails {
     Scanner obj = new Scanner(System.in);
     
     public void management() throws SQLException{
+        
         System.out.println("\t1 -   Add Item\n\t2 -   Remove item\n\t3 -   Change price");
-        switch(obj.nextInt()){
+        int itemCategory = obj.nextInt();
+        
+        System.out.println("\n\t1 -   Ladies Items\n\t2 -   Gents Items\n\t3 -   Kids Items\n\tAny Other -    Accessories");
+        int category = obj.nextInt();
+        
+        switch(itemCategory){
             case 1:
-                System.out.println("\n1 -   Ladies Items\n2 -   Gents Items\n3 -   Kids Items\nAny Other -    Accessories");
                 
                 System.out.println("\nEnter Item Name: ");
                 String name = obj.next();
@@ -22,13 +27,13 @@ public class ManageSaleDetails {
                 System.out.println("\nEnter Item Price: ");
                 float price = obj.nextFloat();
                 
-                trendy.collection.Database.AddSql add = new trendy.collection.Database.AddSql();
+                Database.AddSql add = new Database.AddSql();
                 
-                if(obj.nextInt() == 1){
+                if(category == 1){
                     add.addData("INSERT INTO ladiesitems(ItemCode, ItemName, Price) VALUES ('" +name+ "','" +code+ "','" +price+ "')");
-                }else if(obj.nextInt() == 2){
+                }else if(category == 2){
                     add.addData("INSERT INTO gentsitems(ItemCode, ItemName, Price) VALUES ('" +name+ "','" +code+ "','" +price+ "')");
-                }else if(obj.nextInt() == 3){
+                }else if(category == 3){
                     add.addData("INSERT INTO kidsitems(ItemCode, ItemName, Price) VALUES ('" +name+ "','" +code+ "','" +price+ "')");
                 }else{
                     add.addData("INSERT INTO accessories(ItemCode, ItemName, Price) VALUES ('" +name+ "','" +code+ "','" +price+ "')");
@@ -36,10 +41,29 @@ public class ManageSaleDetails {
                 
                 return;
             case 2:
-                //database
+                System.out.println("\n\tPlease enter Item code that you want to remove: ");
+                String delCode = obj.next();
+                
+                Database.RemoveSql del = new Database.RemoveSql();
+                
+                if(category == 1){
+                    del.removeData("DELETE FROM ladiesitems WHERE ItemCode = '"+delCode+"' ");
+                }else if(category == 2){
+                    del.removeData("DELETE FROM gentsitems WHERE ItemCode = '"+delCode+"' ");
+                }else if(category == 3){
+                    del.removeData("DELETE FROM kidsitems WHERE ItemCode = '"+delCode+"' ");
+                }else{
+                    del.removeData("DELETE FROM accessories WHERE ItemCode = '"+delCode+"' ");
+                }
+                
                 return;
             case 3:
-                //database
+                //"update`user` set `exp` = '666'  where `username` = '"+loggedusername+"'"
+                System.out.println("\n\tPlease enter Item code that you want to update: ");
+                String updateCode = obj.next();
+                
+                
+                
                 return;
             default:
                 System.out.println("Choice of selection is incorrect");
