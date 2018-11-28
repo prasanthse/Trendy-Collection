@@ -58,11 +58,23 @@ public class ManageSaleDetails {
                 
                 return;
             case 3:
-                //"update`user` set `exp` = '666'  where `username` = '"+loggedusername+"'"
                 System.out.println("\n\tPlease enter Item code that you want to update: ");
                 String updateCode = obj.next();
                 
+                System.out.println("\n\tPlease enter new price: ");
+                float newPrice = obj.nextFloat();
                 
+                Database.UpdateSql update = new Database.UpdateSql();
+                
+                if(category == 1){
+                    update.upDateData("update`ladiesitems` set `Price` = '"+newPrice+"'  where `ItemCode` = '"+updateCode+"'");
+                }else if(category == 2){
+                    update.upDateData("update`gentsitems` set `Price` = '"+newPrice+"'  where `ItemCode` = '"+updateCode+"'");
+                }else if(category == 3){
+                    update.upDateData("update`kidsitems` set `Price` = '"+newPrice+"'  where `ItemCode` = '"+updateCode+"'");
+                }else{
+                    update.upDateData("update`accessories` set `Price` = '"+newPrice+"'  where `ItemCode` = '"+updateCode+"'");
+                }
                 
                 return;
             default:
