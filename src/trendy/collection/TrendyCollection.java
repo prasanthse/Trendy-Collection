@@ -20,21 +20,29 @@ public class TrendyCollection {
         switch(selection){
             case 1:
                 ItemsSelection itemsSelection = new ItemsSelection();
+            
+            try {
                 itemsSelection.itemSelect();
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(TrendyCollection.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(TrendyCollection.class.getName()).log(Level.SEVERE, null, ex);
+            }
                 return;
+                
             case 2:
                 GetBillInfo info = new GetBillInfo();
                 info.getInfo();
                 return;
             case 3:
                 ManageSaleDetails manage = new ManageSaleDetails();
-        {
+        
             try {
                 manage.management();
             } catch (SQLException ex) {
                 Logger.getLogger(TrendyCollection.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
+
                 return;
             default:
                 System.out.println("Your selection is wrong! Thank you visiting");

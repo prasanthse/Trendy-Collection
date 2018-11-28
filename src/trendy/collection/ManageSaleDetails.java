@@ -14,15 +14,15 @@ public class ManageSaleDetails {
         System.out.println("\t1 -   Add Item\n\t2 -   Remove item\n\t3 -   Change price");
         int itemCategory = obj.nextInt();
         
-        System.out.println("\n\t1 -   Ladies Items\n\t2 -   Gents Items\n\t3 -   Kids Items\n\tAny Other -    Accessories");
+        System.out.println("\n\t1 -   Ladies Items\n\t2 -   Gents Items\n\t3 -   Kids Items\n\tAny Other numbers -    Accessories");
         int category = obj.nextInt();
         
         switch(itemCategory){
             case 1:
-                
                 System.out.println("\nEnter Item Name: ");
                 String name = obj.next();
-                
+                name += obj.nextLine();
+
                 System.out.println("\nEnter Item Code: ");
                 String code = obj.next();
                 
@@ -32,13 +32,13 @@ public class ManageSaleDetails {
                 Database.AddSql add = new Database.AddSql();
                 
                 if(category == 1){
-                    add.addData("INSERT INTO ladiesitems(ItemCode, ItemName, Price) VALUES ('" +name+ "','" +code+ "','" +price+ "')");
+                    add.addData("INSERT INTO ladiesitems(ItemCode, ItemName, Price) VALUES ('" +code+ "','" +name+ "','" +price+ "')");
                 }else if(category == 2){
-                    add.addData("INSERT INTO gentsitems(ItemCode, ItemName, Price) VALUES ('" +name+ "','" +code+ "','" +price+ "')");
+                    add.addData("INSERT INTO gentsitems(ItemCode, ItemName, Price) VALUES ('" +code+ "','" +name+ "','" +price+ "')");
                 }else if(category == 3){
-                    add.addData("INSERT INTO kidsitems(ItemCode, ItemName, Price) VALUES ('" +name+ "','" +code+ "','" +price+ "')");
+                    add.addData("INSERT INTO kidsitems(ItemCode, ItemName, Price) VALUES ('" +code+ "','" +name+ "','" +price+ "')");
                 }else{
-                    add.addData("INSERT INTO accessories(ItemCode, ItemName, Price) VALUES ('" +name+ "','" +code+ "','" +price+ "')");
+                    add.addData("INSERT INTO accessories(ItemCode, ItemName, Price) VALUES ('" +code+ "','" +name+ "','" +price+ "')");
                 }
                 
                 return;
@@ -114,7 +114,6 @@ public class ManageSaleDetails {
         db.setRs(db.getStmt().executeQuery(sql));
         
         while(db.getRs().next()){
-            System.out.println("");
             if(code.equals(db.getRs().getString("ItemCode"))){
                flag = true;               
             }
