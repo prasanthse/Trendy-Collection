@@ -2,6 +2,8 @@ package trendy.collection;
 
 import java.sql.SQLException;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ManageSaleDetails {
     
@@ -40,9 +42,19 @@ public class ManageSaleDetails {
                 }
                 
                 return;
+                
             case 2:
                 System.out.println("\n\tPlease enter Item code that you want to remove: ");
                 String delCode = obj.next();
+                
+                try {
+                    while(codeCheck(delCode) != true){
+                        System.out.println("\n\tIncorrect item code. Please enter correct Item code that you want to remove: ");
+                        delCode = obj.next();
+                    }
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(ManageSaleDetails.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 
                 Database.RemoveSql del = new Database.RemoveSql();
                 
@@ -57,9 +69,19 @@ public class ManageSaleDetails {
                 }
                 
                 return;
+                
             case 3:
                 System.out.println("\n\tPlease enter Item code that you want to update: ");
                 String updateCode = obj.next();
+                
+                try {
+                    while(codeCheck(updateCode) != true){
+                        System.out.println("\n\tIncorrect item code. Please enter correct Item code that you want to update: ");
+                        updateCode = obj.next();
+                    }
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(ManageSaleDetails.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 
                 System.out.println("\n\tPlease enter new price: ");
                 float newPrice = obj.nextFloat();
@@ -77,9 +99,27 @@ public class ManageSaleDetails {
                 }
                 
                 return;
+                
             default:
                 System.out.println("Choice of selection is incorrect");
                 return;
         }
+    }
+    
+    public Boolean codeCheck(String code) throws SQLException, ClassNotFoundException{
+        String sql = "SELECT ItemCode FROM ladiesitems";
+        boolean flag = false;
+        
+        Database.DBConnection db = new Database.DBConnection();
+        db.setRs(db.getStmt().executeQuery(sql));
+        
+        while(db.getRs().next()){
+            System.out.println("");
+            if(code.equals(db.getRs().getString("ItemCode"))){
+               flag = true;               
+            }
+        } 
+        
+        return flag; 
     }
 }
