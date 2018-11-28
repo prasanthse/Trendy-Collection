@@ -14,6 +14,8 @@ public class GetBillInfo {
     Database.RetrieveSql ret = new Database.RetrieveSql();
       
     public void getInfo() throws SQLException, ClassNotFoundException{
+        Database.DBConnection db = new Database.DBConnection();
+        
         System.out.println("\n\tCashier name?");
         bill.setCashier(obj.next());
         
@@ -29,14 +31,13 @@ public class GetBillInfo {
 
             System.out.println("\n\tEnter Item code:");
             String code = obj.next();
-            
+
             System.out.println("\n\tEnter Item amount:");
             int amount = obj.nextInt();
             
-            try {
-               
+            try {   
                 ret.retrieveForCalculation(code, amount);
-            } catch (ClassNotFoundException ex) {
+            } catch (SQLException ex) {
                 Logger.getLogger(GetBillInfo.class.getName()).log(Level.SEVERE, null, ex);
             }
 

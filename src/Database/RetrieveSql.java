@@ -89,5 +89,7 @@ public class RetrieveSql {
         System.out.println("_ _ _ _ _ _ _ _ _ _ _ _  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _");
         System.out.println("SUB TOTAL                                                      " + cal.getSubTotal());
         
+        db.getStmt().executeUpdate("TRUNCATE purchase");
+        
     }
 }
